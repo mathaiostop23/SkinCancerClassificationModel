@@ -3,27 +3,21 @@ import numpy as np
 import pandas as pd
 import os
 from glob import glob
-import seaborn as sns
 from PIL import Image
-np.random.seed(123)
 from sklearn.preprocessing import label_binarize
 from sklearn.metrics import confusion_matrix
-import itertools
-
-import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPool2D
 from keras import backend as K
-import itertools
-from keras.layers import BatchNormalization
-from keras.utils import to_categorical # convert to one-hot-encoding
-
+from keras.utils import to_categorical 
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import ReduceLROnPlateau
 from sklearn.model_selection import train_test_split
 
-df = pd.read_csv('/Users/mathaios/Desktop/SkinCancerClassification/archive-3/HAM10000_metadata.csv')
+
+np.random.seed(123)
+df = pd.read_csv('./SkinCancerClassification/archive-3/HAM10000_metadata.csv')
 
 
 
@@ -37,7 +31,7 @@ lesion_type_dict = {
     'df': 'Dermatofibroma'
 }
 
-base_skin_dir = '/Users/mathaios/Desktop/SkinCancerClassification/archive-3'
+base_skin_dir = './SkinCancerClassification/archive-3'
 
 imageid_path_dict = {os.path.splitext(os.path.basename(x))[0]: x
                     for x in glob(os.path.join(base_skin_dir, '*', '*.jpg'))}
@@ -53,6 +47,9 @@ print(df['image'].map(lambda x: x.shape).value_counts())
 
 features=df.drop(columns=['cell_type_idx'],axis=1)
 target=df['cell_type_idx']
+
+fig, ax1 = plt.subplots(1, 1, figsize= (10, 5))
+df['cell_type'].value_counts().plot(kind='bar', ax=ax1)
 
 x_train_o, x_test_o, y_train_o, y_test_o = train_test_split(features, target, test_size=0.20,random_state=1234)
 
