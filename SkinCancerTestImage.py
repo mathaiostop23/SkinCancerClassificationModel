@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load the trained model
-model = load_model('/Users/mathaios/Desktop/SkinCancerClassification/SkinCancerClassification.keras')
+model = load_model('./SkinCancerClassification/SkinCancerClassification.keras')
 
 lesion_type_dict = {
     'nv': 'Melanocytic nevi',
@@ -17,7 +17,7 @@ lesion_type_dict = {
 }
 
 # Load a single image for testing (replace 'path_to_your_image.jpg' with the actual path)
-test_image_path = '/Users/mathaios/Desktop/SkinCancerClassification/Dermatofibroma.jpeg'
+test_image_path = './SkinCancerClassification/Dermatofibroma.jpeg'
 test_image = image.load_img(test_image_path, target_size=(75, 100))
 test_image_array = image.img_to_array(test_image)
 test_image_array = np.expand_dims(test_image_array, axis=0)
